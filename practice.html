@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <style>
+        html {
+            font-size: 100px;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .swiper-container {
+            height: 100%;
+            font-size: 0.28rem;
+        }
+
+        .swiper-slide {
+            height: 100%;
+            width: 100%;
+            background: lime;
+        }
+
+        .swiper-wrapper .page1 {
+            background: red;
+        }
+
+        .swiper-wrapper .page2 {
+            background: orange;
+        }
+
+        .swiper-wrapper .page3 {
+            background: yellow;
+        }
+
+        .swiper-wrapper .page4 {
+
+        }
+
+        .swiper-wrapper .page5 {
+            background: cyan;
+        }
+
+        .swiper-wrapper .page6 {
+            background: blue;
+        }
+
+        .swiper-wrapper .page7 {
+            background: violet;
+        }
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide page1">1</div>
+        <div class="swiper-slide page2">2</div>
+        <div class="swiper-slide page3">3</div>
+        <div class="swiper-slide page4">4</div>
+        <div class="swiper-slide page5">5</div>
+        <div class="swiper-slide page6">6</div>
+        <div class="swiper-slide page7">7</div>
+    </div>
+</div>
+<script src="js/swiper.min.js"></script>
+<script>
+    let mySwiper = new Swiper('.swiper-container', {
+        autoplay: 3000,
+        direction: 'vertical',
+        autoplayDisableOnIneraction: false,
+        autoHeight:true
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+@import "reset.min.css";
+@import "animate.min.css";
+@import "swiper.min.css";
+
+html {
+  font-size: 100px; /*640PX:1rem=100px*/
+}
+
+html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #F4F4F4;
+  z-index: -4;
+}
+
+.mainBox {
+  position: relative;
+  max-width: 640px;
+  height: 100%;
+  margin: 0 auto;
+  background: #FFF;
+  z-index: -3;
+}
+
+.loadBox, .phoneBox, .messageBox, .cubeBox, .detailBox {
+  display: none;
+  position: relative; //=>让当前区域中的后代元素都相对于本区域定位
+  height: 100%;
+  overflow: hidden;
+}
+
+/*LOADING*/
+.loadBox {
+  background: #000;
+
+  .title {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -2.2rem; //=>unit(-.7+(-1.5),rem)
+    width: 100%;
+    height: 1.4rem;
+
+    text-align: center;
+    color: #fff;
+    letter-spacing: 0.04rem;
+
+    h1 {
+      line-height: .75rem;
+      font-size: .5rem;
+    }
+    h2 {
+      margin-top: .2rem;
+      line-height: .45rem;
+      font-size: .26rem;
+    }
+  }
+  .progress {
+    @w: 4.6;
+    @h: .3;
+    top: 50%;
+    left: 50%;
+    margin-left: unit(-4.6/2, rem);
+    margin-top: unit(-.3/2+1, rem);
+    position: absolute;
+    width: 4.6rem;
+    height: .3rem;
+    background: #FFF;
+    border-radius: unit(.3/2, rem); //=>圆角值是高度的一半，左右是圆，上下是直线的
+    .run {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: unit(.3, rem);
+      //background: red;
+      border-radius: unit(.3/2, rem); //=>圆角值是高度的一半，左右是圆，上下是直线的
+      background: -webkit-linear-gradient(left bottom, #5cb85c 25%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5cb85c 50%, #5cb85c 75%, #74c274 75%, #74c274 100%);
+      background-size: .3rem .3rem;
+      background: linear-gradient(left bottom, #5cb85c 25%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5cb85c 50%, #5cb85c 75%, #74c274 75%, #74c274 100%);
+      background-size: .3rem .3rem;
+      animation: loadMove 1s linear infinite both;
+    }
+  }
+}
+
+@keyframes loadMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -.3rem;
+  }
+  /*
+在移动端开发的时候，我们使用的大部分css3属性都需要写两套：
+-webkit-xxx:
+xxx:
+加前缀的一定要在前面，不加前缀的在后面（顺序不能乱），只有这样才能适配基本的IOS和安卓系统
+transition、animation、@keyframes、transform、gradient、flex
+*/
+}
+
+.phoneBox {
+  background: url("../img/zf_phoneBg.jpg");
+  background-size: cover;
+  z-index: -2;
+
+  .header {
+    position: absolute;
+    top: .5rem;
+    left: 50%;
+    width: 2.62rem;
+    margin-left: unit(-2.60/2, rem);
+
+    .logo {
+      display: block;
+      width: 100%;
+      height: 1.25rem;
+    }
+
+    .time {
+      display: none;
+      margin-top: 0.1rem;
+      line-height: .3rem;
+      text-align: center;
+      color: #ffffff;
+      font-size: .3rem;
+      letter-spacing: 0.05rem;
+    }
+  }
+
+  .listen {
+    position: absolute;
+    bottom: .3rem;
+    left: 50%;
+    margin-left: unit(-5.2/2, rem);
+    width: 5.2rem;
+    height: 3.6rem;
+    background: url("../img/zf_phoneListen.png") no-repeat;
+    background-size: 100% 100%;
+
+    .touch {
+      position: absolute;
+      right: -.07rem;
+      bottom: .47rem;
+      z-index: 10;
+      width: 1.6rem;
+      height: 1.6rem;
+      //background: rgba(0, 0, 0, .6);
+    }
+
+    .move {
+      .touch;
+      z-index: -1;
+      box-sizing: border-box;
+      border: .03rem solid #0f0;
+      border-radius: 50%;
+      animation: listenTouchMove 1s linear infinite both;
+    }
+  }
+
+  .detail {
+    position: absolute;
+    bottom: .3rem;
+    left: 50%;
+    margin-left: unit(-5.2/2, rem);
+
+    width: 5.2rem;
+    height: 6.59rem;
+    background: url("../img/zf_phoneDetail.png");
+    background-size: 100% 100%;
+
+    //=>init position
+    transition: .3s;
+    transform: translateY(6.89rem);
+
+    .touch {
+      position: absolute;
+      bottom: .28rem;
+      left: 50%;
+      margin-left: unit(-1.6/2, rem);
+      width: 1.6rem;
+      height: 1.6rem;
+      z-index: 10;
+    }
+  }
+}
+
+@keyframes listenTouchMove {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.messageBox {
+  background: #eaeaea;
+
+  .talkBox {
+    margin-top: .2rem;
+    transition: .3s;
+
+    li {
+      position: relative;
+      min-width: 2.4rem;
+      max-width: 3.6rem;
+      margin-bottom: .4rem;
+      padding: .25rem;
+      line-height: .4rem;
+      font-size: .26rem;
+      border-radius: .1rem;
+
+      opacity: 0;
+      transition: .3s;
+      transform: translateY(1rem);
+
+      img {
+        position: absolute;
+        width: .82rem;
+        height: .82rem;
+        border-radius: 50%;
+        top: 0;
+      }
+
+      i {
+        position: absolute;
+        background: url("../img/zf_mess");
+      }
+
+      &.student {
+        background: #FFF;
+        float: left;
+        margin-left: 1.25rem;
+        border: .02rem solid #CACACA;
+
+        img {
+          left: -1rem;
+        }
+
+        i {
+          left: -.1rem;
+          background: url("../img/zf_messageArrow1.png");
+        }
+      }
+
+      &.teacher {
+        float: right;
+        margin-right: 1.25rem;
+        background: #A2E45C;
+        border: .02rem solid #96b474;
+
+        img {
+          right: -1rem;
+        }
+
+        i {
+          right: -0.1rem;
+          background: url("../img/zf_messageArrow2.png");
+        }
+      }
+
+    }
+  }
+
+  .keyBord {
+    position: absolute;
+    left: 0;
+    bottom: -.54rem;
+    width: 100%;
+    height: 5.16rem;
+    background: url("../img/zf_messageKeyboard.png") no-repeat;
+    background-size: 100% 100%;
+
+    transition: .3s;
+    transform: translateY(3.7rem);
+
+    span {
+      display: none;
+      position: absolute;
+      top: .35rem;
+      left: .9rem;
+      font-size: .25rem;
+      width: 4rem;
+      height: .4rem;
+      line-height: .4rem;
+      overflow: hidden;
+    }
+
+    .submit {
+      display: none;
+      position: absolute;
+      right: .1rem;
+      bottom: .6rem;
+      width: 1.47rem;
+      height: .74rem;
+      background: url("../img/zf_messageChat.png") no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}
+
+.cubeBox {
+  background: url("../img/zf_cubeBg.jpg") no-repeat;
+  background-size: cover;
+
+  .tip {
+    position: absolute;
+    bottom: .5rem;
+    left: 50%;
+    margin-left: unit(-3.94/2, rem);
+    width: 3.94rem;
+    height: .44rem;
+  }
+
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: unit(-5.1/2, rem) 0 0 unit(-5.1/2, rem);
+    width: 5.1rem;
+    height: 5.1rem;
+
+    li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  prespective: 2000px;
+
+  .box {
+    transform-style: preserve-3d;
+    transform: scale(0.6) rotateX(-30deg) rotateY(45deg);
+    transition: .3s;
+    li {
+      &:nth-child(1) {
+        transform: translateZ(2.55rem);
+      }
+      &:nth-child(2) {
+        transform: translateZ(-2.55rem) rotateY(180deg);
+      }
+      &:nth-child(3) {
+        transform: translateX(2.55rem) rotateY(90deg);
+      }
+      &:nth-child(4) {
+        transform: translateX(-2.55rem) rotateY(-90deg);
+      }
+      &:nth-child(5) {
+        transform: translateY(2.55rem) rotateX(-90deg);
+      }
+      &:nth-child(6) {
+        transform: translateY(-2.55rem) rotateX(90deg);
+      }
+    }
+  }
+
+}
+
+/*DETAIL*/
+.detailBox {
+  .returnLink {
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+    z-index: 999;
+    width: .64rem;
+    height: .75rem;
+    background: url("../img/zf_return.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .swiper-container, .swiper-slide {
+    font-family: "Microsoft JhengHei";
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+  }
+  .page1 {
+
+    perspective: 2000px;
+
+    dl {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: unit(-6.6/2, rem) 0 0 unit(-5.4/2, rem);
+      width: 5.4rem;
+      height: 6.6rem;
+      transform-style: preserve-3d;
+
+      dt, dd {
+        box-sizing: border-box;
+        height: .6rem;
+        line-height: .6rem;
+        background: #8fbb4c;
+      }
+
+      dt {
+        text-align: center;
+        font-size: .4rem;
+        color: yellow;
+      }
+
+      dd {
+        border-top: .02rem dashed rgba(255, 255, 255, .3);
+        font-size: 0;
+
+        em, p {
+          display: inline-block;
+          vertical-align: middle;
+          position: relative;
+          z-index: 999;
+        }
+
+        em {
+          margin: 0 .15rem;
+          width: .36rem;
+          height: .42rem;
+          line-height: .42rem;
+          text-align: center;
+          color: #fff;
+          font-size: .2rem;
+          font-style: normal;
+          background: url("../img/zf_outline.png") no-repeat;
+          background-size: 100% 100%;
+        }
+        p {
+          width: 4.74rem;
+          line-height: .6rem;
+          font-size: .28rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden; //=>前提条件：当前盒子有具体的宽度，哪怕是百分比宽度
+        }
+      }
+
+    }
+
+  }
+  .page2 {
+    background: #fff9c1;
+
+    h2 {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: .8rem;
+      line-height: .9rem;
+      text-align: center;
+      font-size: .6rem;
+      font-weight: normal;
+    }
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -.5rem 0 0 -.5rem;
+      width: 1rem;;
+      height: 1rem;
+
+      //&:nth-child(1){}//=>.page2 img:nth-child(1)  获取page2下第一个子元素（并且第一个子元素的标签需要是IMG）
+      //&:nth-of-type(1){}//=>首先获取page2中的所有img，然后获取所有IMG中的第一个
+      &:nth-last-of-type(1) {
+        margin: unit(-1.7/2, rem) 0 0 unit(-1.32/2, rem);
+        width: 1.32rem;
+        height: 1.7rem;
+      }
+    }
+
+    h2, img {
+      opacity: 0;
+      &:not(:nth-last-of-type(1)){
+        transition: .3s;
+        opacity: 1;
+      }
+    }
+
+  }
+  #page2 {
+    h2 {
+      animation: bounceInLeft 1s both;
+    }
+    img:nth-last-of-type(1) {
+      animation: shake 1s both;
+    }
+    img {
+      &:not(:nth-last-of-type(1)) {
+        opacity: 1;
+        animation: tada 1s .3s infinite ;
+      }
+      &:nth-of-type(1){
+        margin-top: -2.9rem;
+      }
+      &:nth-of-type(2){
+        margin-top: -1.7rem;
+        margin-left: 1.5rem;
+      }
+      &:nth-of-type(3){
+        margin-top: .7rem;
+        margin-left: 1.5rem;
+      }
+      &:nth-of-type(4){
+        margin-top: 1.9rem;
+      }
+      &:nth-of-type(5){
+        margin-top: .7rem;
+        margin-left: -2.5rem;
+      }
+      &:nth-of-type(6){
+        margin-top: -1.7rem;
+        margin-left: -2.5rem;
+      }
+    }
+
+  }
+  .page3 {
+    background: #E45454;
+  }
+  .page4 {
+    background: #fac471;
+  }
+  .page5 {
+    background: #fbfbf8;
+  }
+  .page6 {
+    background: #5975ff;
+  }
+}
